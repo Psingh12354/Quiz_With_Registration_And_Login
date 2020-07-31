@@ -20,7 +20,6 @@ def delete4():
 with open('./data.json', encoding="utf8") as f:
     data = json.load(f)
 
-# convert the dictionary in lists of questions and answers_choice
 questions = [v for v in data[0].values()]
 answers_choice = [v for v in data[1].values()]
 
@@ -64,6 +63,10 @@ def showresult(score):
         font=("Consolas", 20),
         background="#ffffff",
     )
+    Label(screen6,bg="black",width=250,height=5).place(x=0,y=0)
+    Label(screen6,bg="snow",width=10,height=250).pack(side=LEFT)
+    Label(screen6,bg="snow",width=10,height=250).pack(side=RIGHT)
+    Label(screen6,bg="black",width=250,height=5).pack(side=BOTTOM)
     labelresulttext.pack()
     print("Score is : ",str(score))
     if score >= 20:
@@ -112,10 +115,11 @@ def startquiz():
     screen6 = Toplevel(screen)
     screen6.config(bg="snow")
     global lblQuestion, r1, r2, r3, r4
+    screen6.iconbitmap("img.ico")
     lblQuestion = Label(
         screen6,
         text=questions[indexes[0]],
-        font=("Consolas", 16),
+        font=("Consolas", 25,'bold'),
         width=500,
         justify="center",
         wraplength=400,
@@ -130,7 +134,7 @@ def startquiz():
     r1 = Radiobutton(
         screen6,
         text=answers_choice[indexes[0]][0],
-        font=("Times", 12),
+        font=('arial', 25, 'bold'),
         value=0,
         variable=radiovar,
         command=selected,
@@ -141,7 +145,7 @@ def startquiz():
     r2 = Radiobutton(
         screen6,
         text=answers_choice[indexes[0]][1],
-        font=("Times", 12),
+        font=('arial', 25, 'bold'),
         value=1,
         variable=radiovar,
         command=selected,
@@ -152,7 +156,7 @@ def startquiz():
     r3 = Radiobutton(
         screen6,
         text=answers_choice[indexes[0]][2],
-        font=("Times", 12),
+        font=('arial', 25, 'bold'),
         value=2,
         variable=radiovar,
         command=selected,
@@ -163,7 +167,7 @@ def startquiz():
     r4 = Radiobutton(
         screen6,
         text=answers_choice[indexes[0]][3],
-        font=("Times", 12),
+        font=('arial', 25, 'bold'),
         value=3,
         variable=radiovar,
         command=selected,
@@ -182,7 +186,7 @@ def login_sucess():
     screen3 = Toplevel(screen)
     screen3.title("Quiz Start")
     screen3.geometry("1200x800")
-
+    screen3.iconbitmap("img.ico")
 
 
     lblInstruction = Label(
@@ -273,6 +277,7 @@ def register():
     screen1.title("Register")
     screen1.geometry("1200x800")
     screen1.iconbitmap("img.ico")
+    screen1.config(bg="peach puff")
     def button_hover(e):
         my_button1["bg"] = "orange"
     def button_hover_leave(e):
@@ -289,9 +294,11 @@ def register():
     password = StringVar()
     name=StringVar()
     uid=StringVar()
-
+    Label(screen1,bg="black",width=250,height=5).place(x=0,y=0)
+    Label(screen1,bg="light blue",width=10,height=250).pack(side=LEFT)
+    Label(screen1,bg="light blue",width=10,height=250).pack(side=RIGHT)
+    Label(screen1,bg="black",text="Register only once",fg="gold",font=('arial',20,'bold'),width=250,height=3).pack(side=BOTTOM)
     Label(screen1, text="Please enter details below",fg="red",bg=None,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=600,y=155)
-    Label(screen1, text="").pack()
     Label(screen1,text="Name : ",borderwidth=15,width=10,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=500,y=200)
     name_entry=Entry(screen1,textvariable=name, width=50, bd=5, insertwidth=4,borderwidth=15,relief=SUNKEN, bg="snow",justify="center")
     name_entry.place(x=720,y=202)
@@ -316,19 +323,22 @@ def login():
     screen2.geometry("1200x800")
     screen2.iconbitmap("img.ico")
     Label(screen2, text="Please enter details below to login",fg="red",bg=None,font=('arial', 15, 'bold')).place(x=650,y=160)
-    screen2.config(bg="white")
+    screen2.config(bg="light cyan")
     global  email_verify
     global password_verify
 
     email_verify = StringVar()
     password_verify = StringVar()
-
     global email_entry1
     global password_entry1
     def button_hover(e):
         my_button1["bg"] = "orange"
     def button_hover_leave(e):
         my_button1["bg"] = "black"
+    Label(screen2,bg="black",width=250,height=5).place(x=0,y=0)
+    Label(screen2,bg="snow4",width=10,height=250).pack(side=LEFT)
+    Label(screen2,bg="snow4",width=10,height=250).pack(side=RIGHT)
+    Label(screen2,bg="black",width=250,height=5).pack(side=BOTTOM)
     Label(screen2, text="Email : ",borderwidth=15,width=9,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=500,y=200)
     email_entry1 = Entry(screen2, width=50, bd=5, insertwidth=4, bg="snow",borderwidth=15,relief=SUNKEN,justify="center", textvariable=email_verify)
     email_entry1.place(x=700,y=205)
@@ -355,11 +365,16 @@ def main_screen():
     def button_hover_leave_1(e):
         my_button2["bg"] = "white"
 
+    def button_hover3(e):
+        Low["bg"] = "red"
+
+    def button_hover_leave3(e):
+        Low["bg"] = "black"
+
     screen = Tk()
     screen.geometry("1200x800")
-    screen.config(bg="snow")
+    screen.config(bg="green4")
     screen.title("Quiz")
-
     screen.iconbitmap("img.ico")
     img=ImageTk.PhotoImage(Image.open("img3.jpg"))
     lab = Label(image=img,bg=None)
@@ -372,8 +387,13 @@ def main_screen():
     my_button1.bind("<Leave>",button_hover_leave)
     my_button2.bind("<Enter>",button_hover_1)
     my_button2.bind("<Leave>",button_hover_leave_1)
-    Label(text="Click on register button if not registered else press login",bg=None,fg="red").place(x=600,y=600)
-
+    Label(bg="gold4",width=250,height=2).pack(side=TOP)
+    Label(bg="snow",width=10,height=60).pack(side=LEFT)
+    Label(bg="snow",width=10,height=60).pack(side=RIGHT)
+    Low=Label(text="Click on register button if not registered else press login",bg="black",width=100,height=4,fg="white", font=('arial', 25, 'bold'))
+    Low.pack(side=BOTTOM)
+    Low.bind("<Enter>",button_hover3)
+    Low.bind("<Leave>",button_hover_leave3)
     screen.mainloop()
 
 
