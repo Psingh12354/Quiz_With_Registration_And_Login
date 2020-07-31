@@ -1,0 +1,76 @@
+[
+    {
+        "1": "What color are apples?",
+        "2": "What color are bananas?",
+        "3": "What is the capital of India?",
+        "4": "Which of The Following is must to Execute a Python Code ?",
+        "5": "The Taj Mahal is located in  ?",
+        "6": "The append Method adds value to the list at the  ?",
+        "7": "Which of the following is not a costal city of india ?",
+        "8": "Which of The following is executed in browser(client side) ?",
+        "9": "Which of the following keyword is used to create a function in Python ?",
+        "10": "To Declare a Global variable in python we use the keyword ?"
+    },
+    {
+        "1": [
+            "Red/Green",
+            "Orange",
+            "Yellow",
+            "None of the above"
+        ],
+        "2": [
+            "Red/Green",
+            "Yellow",
+            "None of these",
+            "Both a and b"
+        ],
+        "3": [
+            "Mumbai",
+            "Delhi",
+            "Chennai",
+            "Lucknow"
+        ],
+        "4": [
+            "TURBO C",
+            "Py Interpreter",
+            "Notepad",
+            "IDE"
+        ],
+        "5": [
+            "Patna",
+            "Delhi",
+            "Benaras",
+            "Agra"
+        ],
+        "6": [
+            "custom location",
+            "end",
+            "center",
+            "beginning"
+        ],
+        "7": [
+            "Bengluru",
+            "Kochin",
+            "Mumbai",
+            "vishakhapatnam"
+        ],
+        "8": [
+            "perl",
+            "css",
+            "python",
+            "java"
+        ],
+        "9": [
+            "function",
+            "void",
+            "fun",
+            "def"
+        ],
+        "10": [
+            "all",
+            "var",
+            "let",
+            "global"
+        ]
+    }
+]
