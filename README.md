@@ -1,6 +1,6 @@
 <h1 align=center><b>Quiz_With_Registration_And_Login</b></h1>
 
-<p> Source Code</p>
+<p><b> Source Code</b></p>
 
 ```
 from tkinter import *
@@ -8,13 +8,20 @@ import os
 from PIL import ImageTk,Image
 import random
 import json
+import time
+from tkinter import messagebox
+import re
 
 def delete3():
     screen4.destroy()
 
-
 def delete4():
     screen5.destroy()
+
+def closeAll():
+    screen.destroy()
+    screen6.destroy()
+
 
 
 with open('./data.json', encoding="utf8") as f:
@@ -23,16 +30,9 @@ with open('./data.json', encoding="utf8") as f:
 questions = [v for v in data[0].values()]
 answers_choice = [v for v in data[1].values()]
 
-answers = [1, 2, 1, 1, 3, 1, 0, 1, 3, 3]
+answers = [0, 1, 1, 1, 3, 1, 0, 1, 3, 3]
 
 user_answer = []
-def Res():
-    print("Score List")
-    uid_info=uid.get()
-    score_info=score.get()
-    file = open(uid_info, "w")
-    file.write(uid_info+" "+score_info+"\n")
-    file.close()
 
 indexes = []
 
@@ -44,7 +44,6 @@ def gen():
             continue
         else:
             indexes.append(x)
-
 
 def showresult(score):
     lblQuestion.destroy()
@@ -63,19 +62,23 @@ def showresult(score):
         font=("Consolas", 20),
         background="#ffffff",
     )
-    Label(screen6,bg="black",width=250,height=5).place(x=0,y=0)
+    Label(screen6,bg="gold",width=250,height=5).place(x=0,y=0)
     Label(screen6,bg="snow",width=10,height=250).pack(side=LEFT)
     Label(screen6,bg="snow",width=10,height=250).pack(side=RIGHT)
-    Label(screen6,bg="black",width=250,height=5).pack(side=BOTTOM)
+    Label(screen6,bg="gold",width=250,height=5).pack(side=BOTTOM)
     labelresulttext.pack()
-    print("Score is : ",str(score))
     if score >= 20:
-        labelresulttext.configure(text="You Are Excellent !!",bg=None,fg="red",font=('arial', 20, 'bold'))
+        labelresulttext.configure(text="You Are Excellent !!",bg=None,fg="red",font=('arial', 30, 'bold'))
+        Label(screen6,text=("Your score : "+str(score)),fg="red",bg=None,font=('arial', 40, 'bold'),justify=CENTER).pack()
+        Button(screen6, text="Submit", height="2", width="25", bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'), command=closeAll).pack(side=BOTTOM)
     elif (score >= 10 and score < 20):
-        labelresulttext.configure(text="You Can Be Better !!",bg=None,fg="red",font=('arial', 20, 'bold'))
+        labelresulttext.configure(text="You Can Be Better !!",bg=None,fg="red",font=('arial', 30, 'bold'))
+        Label(screen6,text=("Your score : "+str(score)),fg="red",bg=None,font=('arial', 40, 'bold'),justify=CENTER).pack()
+        Button(screen6, text="Submit", height="2", width="25", bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'), command=closeAll).pack(side=BOTTOM)
     else:
-        labelresulttext.configure(text="You Should Work Hard !!",bg=None,fg="red",font=('arial', 20, 'bold'))
-
+        labelresulttext.configure(text="You Should Work Hard !!",bg=None,fg="red",font=('arial', 30, 'bold'))
+        Label(screen6,text=("Your score : "+str(score)),fg="red",bg=None,font=('arial', 40, 'bold'),justify=CENTER,).pack()
+        Button(screen6, text="Submit", height="2", width="25", bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'),  command=closeAll).pack(side=BOTTOM)
 
 def calc():
     global indexes, user_answer, answers,score
@@ -90,7 +93,6 @@ def calc():
 
 
 ques = 1
-
 
 def selected():
     global radiovar, user_answer
@@ -110,12 +112,15 @@ def selected():
         calc()
 
 
+
 def startquiz():
     global screen6
     screen6 = Toplevel(screen)
     screen6.config(bg="snow")
+    screen6.geometry("1200x800")
     global lblQuestion, r1, r2, r3, r4
     screen6.iconbitmap("img.ico")
+
     lblQuestion = Label(
         screen6,
         text=questions[indexes[0]],
@@ -187,29 +192,27 @@ def login_sucess():
     screen3.title("Quiz Start")
     screen3.geometry("1200x800")
     screen3.iconbitmap("img.ico")
-
-
+    def button_hover(e):
+        btnStart["bg"] = "orange"
+    def button_hover_leave(e):
+        btnStart["bg"] ="snow"
     lblInstruction = Label(
         screen3,
         text="Read The Rules And\nClick Start Once You Are ready",
-        background="#ffffff",
-        font=("Consolas", 14),
+        background="white",
+        fg="black",
+        font=("Consolas", 18),
         justify="center",
     )
     lblInstruction.pack(pady=(10, 100))
-    btnStart = Button(screen3, text="Start Quiz", width=24, height=1, bg="gray", borderwidth=15, relief=SUNKEN,
-                      fg="#FACA2F", padx=5, pady=5, font=('arial', 10, 'bold'), command=startIspressed)
-    btnStart.place(x=500,y=400)
-    Label(screen3,text="Are you ready for Quiz",bg=None,fg="#FACA2F",font=('arial', 20, 'bold')).place(x=460,y=350)
-    lblRules = Label(
-        screen3,
-        text="This quiz contains 10 questions\nYou will get 20 seconds to solve a question\nOnce you select a radio button that will be a final choice\nhence think before you select",
-        width=155,
-        font=("Times", 14),
-        background="#000000",
-        foreground="#FACA2F",
-    )
-    lblRules.pack(side=BOTTOM)
+    btnStart = Button(screen3, text="Start Quiz", width=24, height=1, bg="snow", borderwidth=15, relief=SUNKEN,
+                      fg="black", padx=5, pady=5, font=('arial', 10, 'bold'), command=startIspressed)
+    btnStart.pack(side=BOTTOM)
+    btnStart.bind("<Enter>",button_hover)
+    btnStart.bind("<Leave>",button_hover_leave)
+    Label(screen3,text="Quiz Time",bg=None,fg="gold",font=('Courier', 80, 'bold'),justify="center").pack(pady=(10,30))
+    Label(screen3,text="Click if ready",bg=None,fg="gold",font=('arial', 20, 'bold')).pack(side=BOTTOM)
+    Label(screen3,text="1.  All Questions are compulsary.\n\n2.  Each question contain 5 points.\n\n3.  No negative marking.\n\n4.  In case if you find merge in any other activity than strict action will be taken against you.\n\n5.  One attempt for each question.\n\n6.  No further rectification is done.\n\n7.  Once u move to next question previous answer can not be canged only one attempt for each question.\n\n",width=155,font=("Times", 16,"bold"),background="white",foreground="black").pack(side=LEFT)
 
 
 def password_not_recognised():
@@ -225,31 +228,82 @@ def user_not_found():
     screen5 = Toplevel(screen)
     screen5.title("Success")
     screen5.geometry("150x100")
-    Label(screen5, text="User Not Found").pack()
+    Label(screen5, text="Entry Left").pack()
     Button(screen5, text="OK", command=delete4).pack()
+
+def delete9():
+    screen10.destroy()
+def new():
+    global screen10
+    screen10 = Toplevel(screen1)
+    screen10.title("Warning")
+    screen10.geometry("200x100")
+    Label(screen10, text="Enter Name").pack()
+    Button(screen10, text="OK", command=delete9).pack()
+
+def delete10():
+    screen11.destroy()
+def new1():
+    global screen11
+    screen11 = Toplevel(screen1)
+    screen11.title("Warning")
+    screen11.geometry("200x100")
+    Label(screen11, text="Enter Correct Email").pack()
+    Button(screen11, text="OK", command=delete10).pack()
+
+def delete11():
+    screen12.destroy()
+def new2():
+    global screen12
+    screen12 = Toplevel(screen1)
+    screen12.title("Warning")
+    screen12.geometry("200x100")
+    Label(screen12, text="Enter Uid").pack()
+    Button(screen12, text="OK", command=delete11).pack()
+
+def delete12():
+    screen13.destroy()
+def new3():
+    global screen13
+    screen13 = Toplevel(screen1)
+    screen13.title("Warning")
+    screen13.geometry("200x100")
+    Label(screen13, text="Enter Password").pack()
+    Button(screen13, text="OK", command=delete12).pack()
 
 
 def register_user():
-    print("working")
-
+    global name_info
+    global uid_info
+    global email_info
     email_info = email.get()
     password_info = password.get()
     name_info=name.get()
     uid_info=uid.get()
-    file = open(email_info, "w")
-    file.write(email_info + "\n")
-    file.write(password_info+"\n")
-    file.write(name_info+"\n")
-    file.write(uid_info+"\n")
-    file.close()
-
-    email_entry.delete(0, END)
-    password_entry.delete(0, END)
-    name_entry.delete(0,END)
-    uid_entry.delete(0,END)
-
-
-    Label(screen1, text="Registration Sucess", fg="green", font=("calibri", 11)).pack()
+    regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+    if name_info:
+        if (re.search(regex,email.get())):
+            if uid_info:
+                if password_info:
+                    file = open(email_info, "w")
+                    file.write(email_info + "\n")
+                    file.write(password_info+"\n")
+                    file.write(name_info+"\n")
+                    file.write(uid_info+"\n")
+                    file.close()
+                    email_entry.delete(0, END)
+                    password_entry.delete(0, END)
+                    name_entry.delete(0,END)
+                    uid_entry.delete(0,END)
+                    Label(screen1, text="Registration Sucess", fg="green", font=("calibri", 11)).place(x=750,y=670)
+                else:
+                    new3()
+            else:
+                new2()
+        else:
+            new1()
+    else:
+        new()
 
 
 def login_verify():
@@ -257,7 +311,6 @@ def login_verify():
     password1 = password_verify.get()
     email_entry1.delete(0, END)
     password_entry1.delete(0, END)
-
     list_of_files = os.listdir()
     if email1 in list_of_files:
         file1 = open(email1, "r")
@@ -269,7 +322,8 @@ def login_verify():
 
     else:
         user_not_found()
-
+def sucess():
+    pass
 
 def register():
     global screen1
@@ -282,6 +336,24 @@ def register():
         my_button1["bg"] = "orange"
     def button_hover_leave(e):
         my_button1["bg"] = "black"
+    def userText(event):
+        email_entry.delete(0, END)
+        usercheck = True
+
+    def passText(event):
+        password_entry.delete(0, END)
+        passcheck = True
+    def nameText(event):
+        name_entry.delete(0, END)
+        namecheck = True
+
+    def uidtext(event):
+        uid_entry.delete(0, END)
+        uidcheck = True
+    usercheck = False
+    passcheck = False
+    namecheck=False
+    uidcheck=False
     global email
     global password
     global name
@@ -290,6 +362,12 @@ def register():
     global uid_entry
     global email_entry
     global password_entry
+    global font1
+    def caps(event):
+        name.set(name.get().upper())
+    def caps1(event):
+        uid.set(uid.get().upper())
+    font1=('open sans',10,'bold')
     email = StringVar()
     password = StringVar()
     name=StringVar()
@@ -299,17 +377,29 @@ def register():
     Label(screen1,bg="light blue",width=10,height=250).pack(side=RIGHT)
     Label(screen1,bg="black",text="Register only once",fg="gold",font=('arial',20,'bold'),width=250,height=3).pack(side=BOTTOM)
     Label(screen1, text="Please enter details below",fg="red",bg=None,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=600,y=155)
+
+    mandatory_entry = Entry(screen1)
     Label(screen1,text="Name : ",borderwidth=15,width=10,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=500,y=200)
-    name_entry=Entry(screen1,textvariable=name, width=50, bd=5, insertwidth=4,borderwidth=15,relief=SUNKEN, bg="snow",justify="center")
+    name_entry=Entry(screen1,textvariable=name, width=50, bd=5,font=font1, insertwidth=4,borderwidth=15,relief=SUNKEN, bg="snow",justify="center")
+    name_entry.insert(0,"Name")
+    name_entry.bind("<Button>",nameText)
+    name_entry.bind("<KeyRelease>",caps)
     name_entry.place(x=720,y=202)
     Label(screen1,text="Uid : ",borderwidth=15,width=10,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=500,y=300)
-    uid_entry=Entry(screen1,textvariable=uid, width=50, bd=5, insertwidth=4,borderwidth=15,relief=SUNKEN, bg="snow",justify="center")
+    uid_entry=Entry(screen1,textvariable=uid, width=50, bd=5,font=font1, insertwidth=4,borderwidth=15,relief=SUNKEN, bg="snow",justify="center")
+    uid_entry.insert(0,"UID")
+    uid_entry.bind("<Button>",uidtext)
+    uid_entry.bind("<KeyRelease>",caps1)
     uid_entry.place(x=720,y=302)
     Label(screen1, text="Email : ",borderwidth=15,width=10,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=500,y=400)
-    email_entry = Entry(screen1,textvariable=email, width=50, bd=5, insertwidth=4,borderwidth=15,relief=SUNKEN, bg="snow",justify="center")
+    email_entry = Entry(screen1,textvariable=email,width=50, bd=5,font=font1, insertwidth=4,borderwidth=15,relief=SUNKEN, bg="snow",justify="center")
+    email_entry.insert(0, "abc.123@gmail.com")
+    email_entry.bind("<Button>", userText)
     email_entry.place(x=720,y=402)
     Label(screen1, text="Password : ",borderwidth=15,width=10,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=500,y=500)
-    password_entry = Entry(screen1,textvariable=password, width=50, bd=5, insertwidth=4,borderwidth=15,relief=SUNKEN, bg="snow",justify="center",show="*")
+    password_entry = Entry(screen1,textvariable=password, width=50, bd=5,font=font1, insertwidth=4,borderwidth=15,relief=SUNKEN, bg="snow",justify="center",show="*")
+    password_entry.insert(0,"AlphaNumeric")
+    password_entry.bind("<Button>",passText)
     password_entry.place(x=720,y=502)
     my_button1=Button(screen1, text="Register", width=24, height=1, bg="gray",borderwidth=15,relief=SUNKEN, fg="white", padx=5, pady=5, font=('arial', 10, 'bold'), command=register_user)
     my_button1.place(x=700,y=602)
@@ -322,6 +412,17 @@ def login():
     screen2.title("Login")
     screen2.geometry("1200x800")
     screen2.iconbitmap("img.ico")
+
+    def userText(event):
+        email_entry1.delete(0, END)
+        usercheck = True
+
+    def passText(event):
+        password_entry1.delete(0, END)
+        passcheck = True
+
+    usercheck = False
+    passcheck = False
     Label(screen2, text="Please enter details below to login",fg="red",bg=None,font=('arial', 15, 'bold')).place(x=650,y=160)
     screen2.config(bg="light cyan")
     global  email_verify
@@ -335,15 +436,20 @@ def login():
         my_button1["bg"] = "orange"
     def button_hover_leave(e):
         my_button1["bg"] = "black"
+    font2=('open sans',10,'bold')
     Label(screen2,bg="black",width=250,height=5).place(x=0,y=0)
-    Label(screen2,bg="snow4",width=10,height=250).pack(side=LEFT)
-    Label(screen2,bg="snow4",width=10,height=250).pack(side=RIGHT)
+    Label(screen2,bg="snow",width=10,height=250).pack(side=LEFT)
+    Label(screen2,bg="snow",width=10,height=250).pack(side=RIGHT)
     Label(screen2,bg="black",width=250,height=5).pack(side=BOTTOM)
     Label(screen2, text="Email : ",borderwidth=15,width=9,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=500,y=200)
-    email_entry1 = Entry(screen2, width=50, bd=5, insertwidth=4, bg="snow",borderwidth=15,relief=SUNKEN,justify="center", textvariable=email_verify)
+    email_entry1 = Entry(screen2, width=50, bd=5, insertwidth=4,font=font2, bg="snow",borderwidth=15,relief=SUNKEN,justify="center", textvariable=email_verify)
+    email_entry1.insert(0,"abc.123@gmail.com")
+    email_entry1.bind("<Button>",userText)
     email_entry1.place(x=700,y=205)
     Label(screen2, text="Password : ",borderwidth=15,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=500,y=300)
-    password_entry1 = Entry(screen2, width=50, bd=5, insertwidth=4,show="*",bg="snow",borderwidth=15,relief=SUNKEN,justify="center", textvariable=password_verify)
+    password_entry1 = Entry(screen2, width=50, bd=5, insertwidth=4,font=font2,show="*",bg="snow",borderwidth=15,relief=SUNKEN,justify="center", textvariable=password_verify)
+    password_entry1.insert(0,"AlphaNumeric")
+    password_entry1.bind("<Button>",passText)
     password_entry1.place(x=700,y=305)
     my_button1=Button(screen2, text="Login",  width=24, height=1, bg="gray",borderwidth=15,relief=SUNKEN, fg="white", padx=5, pady=5, font=('arial', 10, 'bold'),command=login_verify)
     my_button1.place(x=700,y=400)
@@ -353,7 +459,6 @@ def login():
 
 def main_screen():
     global screen
-
     def button_hover(e):
         my_button1["bg"] = "orange"
     def button_hover_leave(e):
