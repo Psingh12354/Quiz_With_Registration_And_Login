@@ -1,6 +1,6 @@
 <h1 align=center><b>Quiz_With_Registration_And_Login</b></h1>
 
-<p> This program is able to run a quiz base application which can take imput from user and give output score and also it has a registration and login page</p>
+<p> Source Code</p>
 
 ```
 from tkinter import *
