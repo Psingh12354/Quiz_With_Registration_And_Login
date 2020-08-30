@@ -133,7 +133,6 @@ def startquiz():
         background="#ffffff",
     )
     lblQuestion.pack(pady=(100, 30))
-
     global radiovar
     radiovar = IntVar()
     radiovar.set(-1)
@@ -206,6 +205,7 @@ def login_sucess():
         font=("Consolas", 18),
         justify="center",
     )
+    screen3.bind("<Return>", lambda event=None: btnStart.invoke())
     lblInstruction.pack(pady=(10, 100))
     btnStart = Button(screen3, text="Start Quiz", width=24, height=1, bg="snow", borderwidth=15, relief=SUNKEN,
                       fg="black", padx=5, pady=5, font=('arial', 10, 'bold'), command=startIspressed)
@@ -240,7 +240,7 @@ def new():
     screen10 = Toplevel(screen1)
     screen10.title("Warning")
     screen10.geometry("200x100")
-    Label(screen10, text="Enter Name \n Minimim 8 \n char").pack()
+    Label(screen10, text="Enter Name").pack()
     Button(screen10, text="OK", command=delete9).pack()
 
 def delete10():
@@ -269,8 +269,8 @@ def new3():
     global screen13
     screen13 = Toplevel(screen1)
     screen13.title("Warning")
-    screen13.geometry("200x100")
-    Label(screen13, text="Enter atleast \n 8 digit password").pack()
+    screen13.geometry("300x150")
+    Label(screen13, text="Enter in this\n Format \n uppercase letters: A-Z \n lowercase letters: a-z \n numbers: 0-9 \n any of the special characters: @#$%^&+=").pack()
     Button(screen13, text="OK", command=delete12).pack()
 
 
@@ -283,10 +283,11 @@ def register_user():
     name_info=name.get()
     uid_info=uid.get()
     regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-    if len(name_info)>8:
+    pattern = "^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$"
+    if name_info:
         if (re.search(regex,email.get())):
             if uid_info:
-                if len(password_info)>8:
+                if (re.findall(pattern,password.get())):
                     file = open(email_info, "w")
                     file.write(email_info + "\n")
                     file.write(password_info+"\n")
@@ -398,6 +399,7 @@ def register():
     password_entry.place(x=720,y=502)
     my_button1=Button(screen1, text="Register", width=24, height=1, bg="gray",borderwidth=15,relief=SUNKEN, fg="white", padx=5, pady=5, font=('arial', 10, 'bold'), command=register_user)
     my_button1.place(x=700,y=602)
+    screen1.bind("<Return>", lambda event=None: my_button1.invoke())
     my_button1.bind("<Enter>",button_hover)
     my_button1.bind("<Leave>",button_hover_leave)
 
@@ -440,6 +442,7 @@ def login():
     password_entry1.place(x=700,y=305)
     my_button1=Button(screen2, text="Login",  width=24, height=1, bg="gray",borderwidth=15,relief=SUNKEN, fg="white", padx=5, pady=5, font=('arial', 10, 'bold'),command=login_verify)
     my_button1.place(x=700,y=400)
+    screen2.bind("<Return>", lambda event=None: my_button1.invoke())
     my_button1.bind("<Enter>",button_hover)
     my_button1.bind("<Leave>",button_hover_leave)
 
