@@ -1,6 +1,6 @@
 <h1 align=center><b>Quiz_With_Registration_And_Login</b></h1>
 
-<p><b> Source Code</b></p>
+<h2><b> Source Code</b></h2>
 
 ```
 from tkinter import *
@@ -248,7 +248,7 @@ def new1():
     screen11 = Toplevel(screen1)
     screen11.title("Warning")
     screen11.geometry("200x100")
-    Label(screen11, text="Enter Correct Email").pack()
+    Label(screen11, text="Enter Correct \n Email").pack()
     Button(screen11, text="OK", command=delete10).pack()
 
 def delete11():
@@ -268,7 +268,7 @@ def new3():
     screen13 = Toplevel(screen1)
     screen13.title("Warning")
     screen13.geometry("200x100")
-    Label(screen13, text="Enter Password").pack()
+    Label(screen13, text="Enter atleast \n 8 digit password").pack()
     Button(screen13, text="OK", command=delete12).pack()
 
 
@@ -284,7 +284,7 @@ def register_user():
     if name_info:
         if (re.search(regex,email.get())):
             if uid_info:
-                if password_info:
+                if len(password_info)>8:
                     file = open(email_info, "w")
                     file.write(email_info + "\n")
                     file.write(password_info+"\n")
@@ -339,10 +339,6 @@ def register():
     def userText(event):
         email_entry.delete(0, END)
         usercheck = True
-
-    def passText(event):
-        password_entry.delete(0, END)
-        passcheck = True
     def nameText(event):
         name_entry.delete(0, END)
         namecheck = True
@@ -351,7 +347,6 @@ def register():
         uid_entry.delete(0, END)
         uidcheck = True
     usercheck = False
-    passcheck = False
     namecheck=False
     uidcheck=False
     global email
@@ -398,8 +393,6 @@ def register():
     email_entry.place(x=720,y=402)
     Label(screen1, text="Password : ",borderwidth=15,width=10,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=500,y=500)
     password_entry = Entry(screen1,textvariable=password, width=50, bd=5,font=font1, insertwidth=4,borderwidth=15,relief=SUNKEN, bg="snow",justify="center",show="*")
-    password_entry.insert(0,"AlphaNumeric")
-    password_entry.bind("<Button>",passText)
     password_entry.place(x=720,y=502)
     my_button1=Button(screen1, text="Register", width=24, height=1, bg="gray",borderwidth=15,relief=SUNKEN, fg="white", padx=5, pady=5, font=('arial', 10, 'bold'), command=register_user)
     my_button1.place(x=700,y=602)
@@ -416,13 +409,7 @@ def login():
     def userText(event):
         email_entry1.delete(0, END)
         usercheck = True
-
-    def passText(event):
-        password_entry1.delete(0, END)
-        passcheck = True
-
     usercheck = False
-    passcheck = False
     Label(screen2, text="Please enter details below to login",fg="red",bg=None,font=('arial', 15, 'bold')).place(x=650,y=160)
     screen2.config(bg="light cyan")
     global  email_verify
@@ -448,8 +435,6 @@ def login():
     email_entry1.place(x=700,y=205)
     Label(screen2, text="Password : ",borderwidth=15,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=500,y=300)
     password_entry1 = Entry(screen2, width=50, bd=5, insertwidth=4,font=font2,show="*",bg="snow",borderwidth=15,relief=SUNKEN,justify="center", textvariable=password_verify)
-    password_entry1.insert(0,"AlphaNumeric")
-    password_entry1.bind("<Button>",passText)
     password_entry1.place(x=700,y=305)
     my_button1=Button(screen2, text="Login",  width=24, height=1, bg="gray",borderwidth=15,relief=SUNKEN, fg="white", padx=5, pady=5, font=('arial', 10, 'bold'),command=login_verify)
     my_button1.place(x=700,y=400)
