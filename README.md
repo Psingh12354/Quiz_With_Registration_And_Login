@@ -490,4 +490,10 @@ def main_screen():
 main_screen()
 ```
 
-![img]()
+![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img1.PNG)
+![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img2.PNG)
+![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img3.PNG)
+![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img4.PNG)
+![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img5.PNG)
+![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img6.PNG)
+
