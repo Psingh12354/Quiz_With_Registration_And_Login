@@ -3,7 +3,7 @@
 <h2><b> Source Code</b></h2>
 
 ```
-@@ from tkinter import *
+from tkinter import *
 import os
 from PIL import ImageTk,Image
 import random
@@ -489,7 +489,7 @@ def main_screen():
     screen.mainloop()
 
 
-main_screen()@@
+main_screen()
 ```
 
 ![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img1.PNG)
