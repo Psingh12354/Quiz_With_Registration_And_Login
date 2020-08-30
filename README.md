@@ -120,7 +120,9 @@ def startquiz():
     screen6.geometry("1200x800")
     global lblQuestion, r1, r2, r3, r4
     screen6.iconbitmap("img.ico")
-
+    screen6.overrideredirect(True)
+    screen6.overrideredirect(False)
+    screen6.attributes('-fullscreen', True)
     lblQuestion = Label(
         screen6,
         text=questions[indexes[0]],
@@ -238,7 +240,7 @@ def new():
     screen10 = Toplevel(screen1)
     screen10.title("Warning")
     screen10.geometry("200x100")
-    Label(screen10, text="Enter Name").pack()
+    Label(screen10, text="Enter Name \n Minimim 8 \n char").pack()
     Button(screen10, text="OK", command=delete9).pack()
 
 def delete10():
@@ -281,7 +283,7 @@ def register_user():
     name_info=name.get()
     uid_info=uid.get()
     regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-    if name_info:
+    if len(name_info)>8:
         if (re.search(regex,email.get())):
             if uid_info:
                 if len(password_info)>8:
