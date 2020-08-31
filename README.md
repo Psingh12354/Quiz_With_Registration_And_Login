@@ -491,7 +491,6 @@ def main_screen():
     Low.bind("<Leave>",button_hover_leave3)
     screen.mainloop()
 
-
 main_screen()
 ```
 
