@@ -36,6 +36,15 @@ user_answer = []
 
 indexes = []
 
+def DataStore():
+    num_info=num.get()
+    comment_info=comment.get()
+    with open("records.txt","a") as file:
+        file.write("PC No. : "+num_info+"\n")
+        file.write("Scores get : "+str(score)+"\n")
+        file.write("Comments : "+comment_info+"\n\n")
+    closeAll()
+
 def gen():
     global indexes
     while (len(indexes) < 5):
@@ -45,7 +54,10 @@ def gen():
         else:
             indexes.append(x)
 
+
 def showresult(score):
+    global num
+    global comment
     lblQuestion.destroy()
     r1.destroy()
     r2.destroy()
@@ -67,18 +79,38 @@ def showresult(score):
     Label(screen6,bg="snow",width=10,height=250).pack(side=RIGHT)
     Label(screen6,bg="gold",width=250,height=5).pack(side=BOTTOM)
     labelresulttext.pack()
+    num=StringVar()
+    comment=StringVar()
     if score >= 20:
         labelresulttext.configure(text="You Are Excellent !!",bg=None,fg="red",font=('arial', 30, 'bold'))
         Label(screen6,text=("Your score : "+str(score)),fg="red",bg=None,font=('arial', 40, 'bold'),justify=CENTER).pack()
-        Button(screen6, text="Submit", height="2", width="25", bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'), command=closeAll).pack(side=BOTTOM)
+        Label(screen6, text="PC no.", fg="red", bg=None, font=('arial', 20, 'bold'),justify=CENTER).pack()
+        Entry(screen6, textvariable=num, width=20, bd=5, insertwidth=4, borderwidth=15, relief=SUNKEN,
+              bg="snow", justify="center").pack()
+        Label(screen6, text="Any suggestion", fg="red", bg=None, font=('arial', 20, 'bold'),justify=CENTER).pack()
+        Entry(screen6, textvariable=comment, width=50, bd=5, insertwidth=4, borderwidth=15, relief=SUNKEN,
+              bg="snow", justify="center").pack()
+        Button(screen6, text="Submit", height="2", width="25", bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'), command=DataStore).pack(side=BOTTOM)
     elif (score >= 10 and score < 20):
         labelresulttext.configure(text="You Can Be Better !!",bg=None,fg="red",font=('arial', 30, 'bold'))
         Label(screen6,text=("Your score : "+str(score)),fg="red",bg=None,font=('arial', 40, 'bold'),justify=CENTER).pack()
-        Button(screen6, text="Submit", height="2", width="25", bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'), command=closeAll).pack(side=BOTTOM)
+        Label(screen6, text="PC no.", fg="red", bg=None, font=('arial', 20, 'bold'),justify=CENTER).pack()
+        Entry(screen6, textvariable=num, width=20, bd=5, insertwidth=4, borderwidth=15, relief=SUNKEN,
+              bg="snow", justify="center").pack()
+        Label(screen6, text="Any suggestion", fg="red", bg=None, font=('arial', 20, 'bold'),justify=CENTER).pack()
+        Entry(screen6, textvariable=comment, width=50, bd=5, insertwidth=4, borderwidth=15, relief=SUNKEN,
+              bg="snow", justify="center").pack()
+        Button(screen6, text="Submit", height="2", width="25", bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'), command=DataStore).pack(side=BOTTOM)
     else:
         labelresulttext.configure(text="You Should Work Hard !!",bg=None,fg="red",font=('arial', 30, 'bold'))
         Label(screen6,text=("Your score : "+str(score)),fg="red",bg=None,font=('arial', 40, 'bold'),justify=CENTER,).pack()
-        Button(screen6, text="Submit", height="2", width="25", bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'),  command=closeAll).pack(side=BOTTOM)
+        Label(screen6, text="PC no.", fg="red", bg=None, font=('arial', 20, 'bold'),justify=CENTER).pack()
+        Entry(screen6, textvariable=num, width=20, bd=5, insertwidth=4, borderwidth=15, relief=SUNKEN,
+              bg="snow", justify="center").pack()
+        Label(screen6, text="Any suggestion", fg="red", bg=None, font=('arial', 20, 'bold'),justify=CENTER).pack()
+        Entry(screen6, textvariable=comment, width=50, bd=5, insertwidth=4, borderwidth=15, relief=SUNKEN,
+              bg="snow", justify="center").pack()
+        Button(screen6, text="Submit", height="2", width="25", bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'),  command=DataStore).pack(side=BOTTOM)
 
 def calc():
     global indexes, user_answer, answers,score
@@ -88,6 +120,8 @@ def calc():
         if user_answer[x] == answers[i]:
             score = score + 5
         x += 1
+    else:
+        x -= 1
     print(score)
     showresult(score)
 
@@ -214,7 +248,7 @@ def login_sucess():
     btnStart.bind("<Leave>",button_hover_leave)
     Label(screen3,text="Quiz Time",bg=None,fg="gold",font=('Courier', 80, 'bold'),justify="center").pack(pady=(10,30))
     Label(screen3,text="Click if ready",bg=None,fg="gold",font=('arial', 20, 'bold')).pack(side=BOTTOM)
-    Label(screen3,text="1.  All Questions are compulsary.\n\n2.  Each question contain 5 points.\n\n3.  No negative marking.\n\n4.  In case if you find merge in any other activity than strict action will be taken against you.\n\n5.  One attempt for each question.\n\n6.  No further rectification is done.\n\n7.  Once u move to next question previous answer can not be canged only one attempt for each question.\n\n",width=155,font=("Times", 16,"bold"),background="white",foreground="black").pack(side=LEFT)
+    Label(screen3,text="1.  All Questions are compulsary.\n\n2.  Each question contain 5 points.\n\n3.  No negative marking.\n\n4.  In case if you find merge in any other activity than strict action will be taken against you.\n\n5.  One attempt for each question.\n\n6. Once u move to next question previous answer can not be canged only one attempt for each question.\n\n7. In last you need to enter your system number to save your marks else no marks is being uploaded.\n\n",width=155,font=("Times", 16,"bold"),background="white",foreground="black").pack(side=LEFT)
 
 
 def password_not_recognised():
@@ -283,7 +317,7 @@ def register_user():
     name_info=name.get()
     uid_info=uid.get()
     regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-    pattern = "^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$"
+    pattern = "^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$.%^&+=]).*$"
     if name_info:
         if (re.search(regex,email.get())):
             if uid_info:
@@ -338,7 +372,7 @@ def register():
     def button_hover(e):
         my_button1["bg"] = "orange"
     def button_hover_leave(e):
-        my_button1["bg"] = "black"
+        my_button1["bg"] = "white"
     def userText(event):
         email_entry.delete(0, END)
         usercheck = True
@@ -349,6 +383,7 @@ def register():
     def uidtext(event):
         uid_entry.delete(0, END)
         uidcheck = True
+
     usercheck = False
     namecheck=False
     uidcheck=False
@@ -397,7 +432,7 @@ def register():
     Label(screen1, text="Password : ",borderwidth=15,width=10,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=500,y=500)
     password_entry = Entry(screen1,textvariable=password, width=50, bd=5,font=font1, insertwidth=4,borderwidth=15,relief=SUNKEN, bg="snow",justify="center",show="*")
     password_entry.place(x=720,y=502)
-    my_button1=Button(screen1, text="Register", width=24, height=1, bg="gray",borderwidth=15,relief=SUNKEN, fg="white", padx=5, pady=5, font=('arial', 10, 'bold'), command=register_user)
+    my_button1=Button(screen1, text="Register", height=1, width=22, bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'), command=register_user)
     my_button1.place(x=700,y=602)
     screen1.bind("<Return>", lambda event=None: my_button1.invoke())
     my_button1.bind("<Enter>",button_hover)
@@ -426,7 +461,7 @@ def login():
     def button_hover(e):
         my_button1["bg"] = "orange"
     def button_hover_leave(e):
-        my_button1["bg"] = "black"
+        my_button1["bg"] = "white"
     font2=('open sans',10,'bold')
     Label(screen2,bg="black",width=250,height=5).place(x=0,y=0)
     Label(screen2,bg="snow",width=10,height=250).pack(side=LEFT)
@@ -440,7 +475,7 @@ def login():
     Label(screen2, text="Password : ",borderwidth=15,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=500,y=300)
     password_entry1 = Entry(screen2, width=50, bd=5, insertwidth=4,font=font2,show="*",bg="snow",borderwidth=15,relief=SUNKEN,justify="center", textvariable=password_verify)
     password_entry1.place(x=700,y=305)
-    my_button1=Button(screen2, text="Login",  width=24, height=1, bg="gray",borderwidth=15,relief=SUNKEN, fg="white", padx=5, pady=5, font=('arial', 10, 'bold'),command=login_verify)
+    my_button1=Button(screen2, text="Login", height=1, width=22, bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'),command=login_verify)
     my_button1.place(x=700,y=400)
     screen2.bind("<Return>", lambda event=None: my_button1.invoke())
     my_button1.bind("<Enter>",button_hover)
@@ -490,6 +525,7 @@ def main_screen():
     Low.bind("<Enter>",button_hover3)
     Low.bind("<Leave>",button_hover_leave3)
     screen.mainloop()
+
 
 main_screen()
 ```
