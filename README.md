@@ -1,6 +1,6 @@
 <h1 align=center><b>Quiz_With_Registration_And_Login</b></h1>
 
-<h2><b> Source Code</b></h2>
+<h2><i><b> Source Code</b></i></h2>
 
 ```
 from tkinter import *
@@ -39,10 +39,17 @@ indexes = []
 def DataStore():
     num_info=num.get()
     comment_info=comment.get()
+    var1_info=var1.get()
+    var2_info=var2.get()
+    var3_info=var3.get()
+
     with open("records.txt","a") as file:
-        file.write("PC No. : "+num_info+"\n")
-        file.write("Scores get : "+str(score)+"\n")
-        file.write("Comments : "+comment_info+"\n\n")
+        if num_info:
+            file.write("PC No. : "+num_info+"\n")
+            file.write("Scores get : "+str(score)+"\n")
+            file.write("Comments : "+comment_info+"\n")
+            file.write("Rate us : "+str(var1_info)+" "+str(var2_info)+" "+str(var3_info)+"\n\n")
+            file.close()
     closeAll()
 
 def gen():
@@ -58,6 +65,7 @@ def gen():
 def showresult(score):
     global num
     global comment
+    global var1,var2,var3
     lblQuestion.destroy()
     r1.destroy()
     r2.destroy()
@@ -81,36 +89,56 @@ def showresult(score):
     labelresulttext.pack()
     num=StringVar()
     comment=StringVar()
+    var1 = IntVar()
+    var2 = IntVar()
+    var3 = IntVar()
     if score >= 20:
-        labelresulttext.configure(text="You Are Excellent !!",bg=None,fg="red",font=('arial', 30, 'bold'))
-        Label(screen6,text=("Your score : "+str(score)),fg="red",bg=None,font=('arial', 40, 'bold'),justify=CENTER).pack()
-        Label(screen6, text="PC no.", fg="red", bg=None, font=('arial', 20, 'bold'),justify=CENTER).pack()
+        labelresulttext.configure(text="You Are Excellent !!",bg="snow",fg="red",font=('arial', 30, 'bold'))
+        Label(screen6,text=("Your score : "+str(score)),fg="red",bg="snow",font=('arial', 40, 'bold')).pack()
+        Label(screen6, text="\nPC no.", fg="red",bg="snow", font=('arial', 20, 'bold'),justify=CENTER).pack()
         Entry(screen6, textvariable=num, width=20, bd=5, insertwidth=4, borderwidth=15, relief=SUNKEN,
               bg="snow", justify="center").pack()
-        Label(screen6, text="Any suggestion", fg="red", bg=None, font=('arial', 20, 'bold'),justify=CENTER).pack()
-        Entry(screen6, textvariable=comment, width=50, bd=5, insertwidth=4, borderwidth=15, relief=SUNKEN,
-              bg="snow", justify="center").pack()
+        lab7 = Label(screen6, text="\nRate us  ", width=24,bg="snow", font=('arial', 20, 'bold'),justify=CENTER).pack()
+        Checkbutton(screen6, text=" Excellence ", variable=var1,font=('arial', 10, 'bold'), bg="snow",justify=CENTER).pack()
+        Checkbutton(screen6, text=" Good  ", variable=var2,font=('arial', 10, 'bold'), bg="snow",justify=CENTER).pack()
+        Checkbutton(screen6, text=" Average ", variable=var3,font=('arial', 10, 'bold'), bg="snow",justify=CENTER).pack()
+        Label(screen6, text="\nComments:", fg="red", bg="snow", font=('arial', 20, 'bold'),justify=CENTER).pack()
+        Entry(screen6, textvariable=comment, width=50, bd=5,relief=SUNKEN,
+              bg="snow", justify="center",font=('arial', 15, 'bold')).pack(ipady=40)
         Button(screen6, text="Submit", height="2", width="25", bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'), command=DataStore).pack(side=BOTTOM)
     elif (score >= 10 and score < 20):
-        labelresulttext.configure(text="You Can Be Better !!",bg=None,fg="red",font=('arial', 30, 'bold'))
-        Label(screen6,text=("Your score : "+str(score)),fg="red",bg=None,font=('arial', 40, 'bold'),justify=CENTER).pack()
-        Label(screen6, text="PC no.", fg="red", bg=None, font=('arial', 20, 'bold'),justify=CENTER).pack()
+        labelresulttext.configure(text="You Can Be Better !!",bg="snow",fg="red",font=('arial', 30, 'bold'))
+        Label(screen6, text=("Your score : " + str(score)), fg="red", bg="snow", font=('arial', 40, 'bold')).pack()
+        Label(screen6, text="\nPC no.", fg="red", bg="snow", font=('arial', 20, 'bold'), justify=CENTER).pack()
         Entry(screen6, textvariable=num, width=20, bd=5, insertwidth=4, borderwidth=15, relief=SUNKEN,
               bg="snow", justify="center").pack()
-        Label(screen6, text="Any suggestion", fg="red", bg=None, font=('arial', 20, 'bold'),justify=CENTER).pack()
-        Entry(screen6, textvariable=comment, width=50, bd=5, insertwidth=4, borderwidth=15, relief=SUNKEN,
-              bg="snow", justify="center").pack()
-        Button(screen6, text="Submit", height="2", width="25", bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'), command=DataStore).pack(side=BOTTOM)
+        lab7 = Label(screen6, text="\nRate us  ", width=24, bg="snow", font=('arial', 20, 'bold'),
+                     justify=CENTER).pack()
+        Checkbutton(screen6, text=" Excellence ", variable=var1, font=('arial', 10, 'bold'), bg="snow",
+                    justify=CENTER).pack()
+        Checkbutton(screen6, text=" Good  ", variable=var2, font=('arial', 10, 'bold'), bg="snow",
+                    justify=CENTER).pack()
+        Checkbutton(screen6, text=" Average ", variable=var3, font=('arial', 10, 'bold'), bg="snow",
+                    justify=CENTER).pack()
+        Label(screen6, text="\nComments:", fg="red", bg="snow", font=('arial', 20, 'bold'), justify=CENTER).pack()
+        Entry(screen6, textvariable=comment, width=50, bd=5, relief=SUNKEN,
+              bg="snow", justify="center", font=('arial', 15, 'bold')).pack(ipady=40)
+        Button(screen6, text="Submit", height="2", width="25", bg="white", borderwidth=15, relief=SUNKEN, fg="black",
+               padx=5, pady=5, font=('arial', 15, 'bold'), command=DataStore).pack(side=BOTTOM)
     else:
-        labelresulttext.configure(text="You Should Work Hard !!",bg=None,fg="red",font=('arial', 30, 'bold'))
-        Label(screen6,text=("Your score : "+str(score)),fg="red",bg=None,font=('arial', 40, 'bold'),justify=CENTER,).pack()
-        Label(screen6, text="PC no.", fg="red", bg=None, font=('arial', 20, 'bold'),justify=CENTER).pack()
+        labelresulttext.configure(text="You Should Work Hard !!",bg="snow",fg="red",font=('arial', 30, 'bold'))
+        Label(screen6,text=("Your score : "+str(score)),fg="red",bg="snow",font=('arial', 40, 'bold')).pack()
+        Label(screen6, text="\nPC no.", fg="red",bg="snow", font=('arial', 20, 'bold'),justify=CENTER).pack()
         Entry(screen6, textvariable=num, width=20, bd=5, insertwidth=4, borderwidth=15, relief=SUNKEN,
               bg="snow", justify="center").pack()
-        Label(screen6, text="Any suggestion", fg="red", bg=None, font=('arial', 20, 'bold'),justify=CENTER).pack()
-        Entry(screen6, textvariable=comment, width=50, bd=5, insertwidth=4, borderwidth=15, relief=SUNKEN,
-              bg="snow", justify="center").pack()
-        Button(screen6, text="Submit", height="2", width="25", bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'),  command=DataStore).pack(side=BOTTOM)
+        lab7 = Label(screen6, text="\nRate us  ", width=24,bg="snow", font=('arial', 20, 'bold'),justify=CENTER).pack()
+        Checkbutton(screen6, text=" Excellence ", variable=var1,font=('arial', 10, 'bold'), bg="snow",justify=CENTER).pack()
+        Checkbutton(screen6, text=" Good  ", variable=var2,font=('arial', 10, 'bold'), bg="snow",justify=CENTER).pack()
+        Checkbutton(screen6, text=" Average ", variable=var3,font=('arial', 10, 'bold'), bg="snow",justify=CENTER).pack()
+        Label(screen6, text="\nComments:", fg="red", bg="snow", font=('arial', 20, 'bold'),justify=CENTER).pack()
+        Entry(screen6, textvariable=comment, width=50, bd=5,relief=SUNKEN,
+              bg="snow", justify="center",font=('arial', 15, 'bold')).pack(ipady=40)
+        Button(screen6, text="Submit", height="2", width="25", bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'), command=DataStore).pack(side=BOTTOM)
 
 def calc():
     global indexes, user_answer, answers,score
@@ -122,7 +150,6 @@ def calc():
         x += 1
     else:
         x -= 1
-    print(score)
     showresult(score)
 
 
@@ -164,13 +191,34 @@ def startquiz():
         width=500,
         justify="center",
         wraplength=400,
-        background="#ffffff",
+        background="snow",
     )
     lblQuestion.pack(pady=(100, 30))
     global radiovar
     radiovar = IntVar()
-    radiovar.set(-1)
+    def button_hover1(e):
+        r1["bg"] = "snow2"
 
+    def button_hover_leave1(e):
+        r1["bg"] = "snow"
+
+    def button_hover2(e):
+        r2["bg"] = "snow2"
+
+    def button_hover_leave2(e):
+        r2["bg"] = "snow"
+
+    def button_hover3(e):
+        r3["bg"] = "snow2"
+
+    def button_hover_leave3(e):
+        r3["bg"] = "snow"
+    def button_hover4(e):
+        r4["bg"] = "snow2"
+
+    def button_hover_leave4(e):
+        r4["bg"] = "snow"
+    radiovar.set(-1)
     r1 = Radiobutton(
         screen6,
         text=answers_choice[indexes[0]][0],
@@ -178,10 +226,11 @@ def startquiz():
         value=0,
         variable=radiovar,
         command=selected,
-        background="#ffffff",
+        background="snow",
     )
     r1.pack(pady=5)
-
+    r1.bind("<Enter>",button_hover1)
+    r1.bind("<Leave>",button_hover_leave1)
     r2 = Radiobutton(
         screen6,
         text=answers_choice[indexes[0]][1],
@@ -189,10 +238,11 @@ def startquiz():
         value=1,
         variable=radiovar,
         command=selected,
-        background="#ffffff",
+        background="snow",
     )
     r2.pack(pady=5)
-
+    r2.bind("<Enter>",button_hover2)
+    r2.bind("<Leave>",button_hover_leave2)
     r3 = Radiobutton(
         screen6,
         text=answers_choice[indexes[0]][2],
@@ -200,10 +250,11 @@ def startquiz():
         value=2,
         variable=radiovar,
         command=selected,
-        background="#ffffff",
+        background="snow",
     )
     r3.pack(pady=5)
-
+    r3.bind("<Enter>",button_hover3)
+    r3.bind("<Leave>",button_hover_leave3)
     r4 = Radiobutton(
         screen6,
         text=answers_choice[indexes[0]][3],
@@ -211,10 +262,11 @@ def startquiz():
         value=3,
         variable=radiovar,
         command=selected,
-        background="#ffffff",
+        background="snow",
     )
     r4.pack(pady=5)
-
+    r4.bind("<Enter>",button_hover4)
+    r4.bind("<Leave>",button_hover_leave4)
 
 def startIspressed():
     gen()
@@ -239,7 +291,6 @@ def login_sucess():
         font=("Consolas", 18),
         justify="center",
     )
-    screen3.bind("<Return>", lambda event=None: btnStart.invoke())
     lblInstruction.pack(pady=(10, 100))
     btnStart = Button(screen3, text="Start Quiz", width=24, height=1, bg="snow", borderwidth=15, relief=SUNKEN,
                       fg="black", padx=5, pady=5, font=('arial', 10, 'bold'), command=startIspressed)
@@ -332,7 +383,7 @@ def register_user():
                     password_entry.delete(0, END)
                     name_entry.delete(0,END)
                     uid_entry.delete(0,END)
-                    Label(screen1, text="Registration Sucess", fg="green", font=("calibri", 11)).place(x=750,y=670)
+                    Label(screen1, text="Registration Sucess", fg="green", font=("calibri", 11)).place(x=755,y=670)
                 else:
                     new3()
             else:
@@ -432,8 +483,8 @@ def register():
     Label(screen1, text="Password : ",borderwidth=15,width=10,relief=SUNKEN,font=('arial', 20, 'bold')).place(x=500,y=500)
     password_entry = Entry(screen1,textvariable=password, width=50, bd=5,font=font1, insertwidth=4,borderwidth=15,relief=SUNKEN, bg="snow",justify="center",show="*")
     password_entry.place(x=720,y=502)
-    my_button1=Button(screen1, text="Register", height=1, width=22, bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=5, font=('arial', 15, 'bold'), command=register_user)
-    my_button1.place(x=700,y=602)
+    my_button1=Button(screen1, text="Register", height=1, width=20, bg="white",borderwidth=15,relief=SUNKEN, fg="black", padx=5, pady=4, font=('arial', 15, 'bold'), command=register_user)
+    my_button1.place(x=700,y=580)
     screen1.bind("<Return>", lambda event=None: my_button1.invoke())
     my_button1.bind("<Enter>",button_hover)
     my_button1.bind("<Leave>",button_hover_leave)
@@ -530,6 +581,7 @@ def main_screen():
 main_screen()
 ```
 
+<p><b> There are some major changes which i have not shown here but you can download it from project.rar file</b></p>
 ![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img1.PNG)
 ![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img2.PNG)
 ![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img3.PNG)
