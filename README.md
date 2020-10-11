@@ -581,7 +581,7 @@ def main_screen():
 main_screen()
 ```
 
-<p><b> There are some major changes which i have not shown here but you can download it from output.zip file.</b></p>
+<p><b> There are some major changes which i have not shown here but you can download it from Project.zip file.</b></p>
 
 
 ![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img1.PNG)
