@@ -588,6 +588,6 @@ main_screen()
 ![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img2.PNG)
 ![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img3.PNG)
 ![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img4.PNG)
-![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img5.PNG)
-![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img6.PNG)
+![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img10.PNG)
+![](https://github.com/Psingh12354/Quiz_With_Registration_And_Login/blob/master/img11.PNG)
 
