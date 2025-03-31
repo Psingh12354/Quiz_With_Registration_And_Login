@@ -2,7 +2,7 @@
 
 <h2><i><b> Source Code</b></i></h2>
 
-```
+```python
 from tkinter import *
 import os
 from PIL import ImageTk,Image
